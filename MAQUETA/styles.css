@@ -1,0 +1,45 @@
+
+
+
+body {
+    background-color: #dfecdf;
+    
+}
+
+
+#bienvenida {
+ 	 padding: 20px;
+ 	 background-image: url("descarga.jpg");
+	 background-repeat: no-repeat;
+	 color:white;
+	 text-align: center;
+	 font-family: "Tahoma", "Geneva", sans-serif; 
+	 font-size: 150%;
+}
+
+#upmenu {
+    background-color:#00b3b3;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+
+#content{
+	
+	padding-bottom: 25%;
+	color: black;
+	text-align: bottom ; 
+
+
+}
+
+
+
+#footer {
+    background-color:gray;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}

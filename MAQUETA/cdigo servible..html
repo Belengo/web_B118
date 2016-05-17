@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles.css">
+	<TITLE>Registro Paciente</TITLE>
+</head>
+<body>
+
+<h1 align="center"> Registro Paciente </h1>
+
+
+	<form action="Formulario_Registro_Paciente.php" method="get">
+      <table align="center"> 
+	   <tr>
+	 	<td>Nombre Completo</td>
+	 	  <td><input type="text" name= "txtNombreP" placeholder="Nombre (s)" required="true"></input></td>
+	 	  <td><input type="text" name= "txtApPaternoP" placeholder="Apellido Paterno" required="true"></input></td>
+	 	  <td><input type="text" name= "txtApMaternoP" placeholder="Apellido Materno" required="true"></input></td>
+	   </tr>
+
+	
+	   <tr>
+	 	<td>Fecha de Nacimiento</td>
+	 	  <td><input type="date" name="fecha_nacP" placeholder="DD/MM//AAAA" required="true"></input></td>
+	   </tr>
+
+
+
+ <tr>
+	 	<td>Sexo</td>
+	 	  <td><input type="radio"  placeholder="F" name="sexo" value="female" >F</input>
+	 	  <input type="radio" placeholder="M" name="sexo" value="male">M</input></td>
+
+	 </tr>
+
+
+
+
+
+     <tr>
+	 	<td>Dirección</td>
+	 	  <td><input type="text" name="txtcalleP" placeholder="Calle" name="direccion"  required="true"></input></td>
+	 	  <td><input type="text" name="txtnum_extP" placeholder="Num. exterior" name="direccion" required="true"></input></td>
+	 	  <tr><td></td>
+	 	  <td><input type="text" name="txtcoloniaP" placeholder="Colonia" name="direccion"  required="true"></input></td>
+	 	  <td><input type="text" name="txtmunicipioP" placeholder="Municipio" name="direccion"  required="true"></input></td>
+	 	  <td><input type="text" name="txtestadoP" placeholder="Estado"   required="true"></input></td>
+	 	  <tr><td></td>><td><input type="text"  name="txtcodpostP" placeholder="Codigo Postal" name="direccion" required="true"></input></td>
+	 	</tr> </tr>
+    </tr>
+
+
+	 <tr>
+	 	<td>Tel&eacutefono</td>
+	 	  <td><input type="tel" name="telP" placeholder="55555555" required="true"></input></td>
+	 </tr>
+
+
+	 <tr>
+	 	<td>Correo</td>
+	 	<td><input type"email"  name="emailP" placeholder="tucorreo@servicio.com" required="true"></input></td>
+	 </tr>
+
+
+    <tr>
+    <td>Contraseña</td>
+      <td><input type="password"  name="contrasena" placeholder="Contraseña" required="true"></input></td>
+
+   </tr> 
+
+
+    <tr>
+	 	<td align="center"><input type="submit" name="botonreg" value="Registrarme" ></input></td>
+    </tr>
+
+
+
+    </table>
+</form>
+
+
+<!--Comienza PHP -->
+<?php 
+
+// include Parse SDK autoloader
+require 'vendor/autoload.php';
+
+
+use Parse\ParseObject;
+use Parse\ParseACL;
+use Parse\ParsePush;
+use Parse\ParseUser;
+use Parse\ParseInstallation;
+use Parse\ParseException;
+use Parse\ParseAnalytics;
+use Parse\ParseFile;
+use Parse\ParseCloud;
+use Parse\ParseClient;
+
+ 
+ ParseClient::initialize( 'escom-epilepsia', '', 'epilepsiamasterkey');
+ ParseClient::setServerURL('https://escom-epilepsia.herokuapp.com/parse');
+
+
+
+
+       $nombreP=$_GET['txtNombreP'];
+   	   $apellido_paternoP=$_GET['txtApPaternoP'];
+   	   $apellido_maternoP=$_GET['txtApMaternoP'];
+   	   $nacP=$_GET['fecha_nacP'];
+   	   $calleP=$_GET['txtcalleP'];
+   	   $numeroP=$_GET['txtnum_extP'];
+   	   $coloniaP=$_GET['txtcoloniaP'];
+   	   $delegacionP=$_GET['txtmunicipioP'];
+   	   $estadoP=$_GET['txtestadoP'];
+   	   $codigo_postalP=$_GET['txtcodpostP'];
+   	   $telefonoP=$_GET['telP'];
+   	   $espacialidadesP=$_GET['especialidadesP'];
+   	   $emailP=$_GET['emailP'];
+   	   $passwordP=$_GET['contrasenaP'];
+       $dateP = DateTime::createFromFormat('Y-m-j', $nacP);
+      //$especialistaId = "EFBUQLiG9K";  //Prueba
+      //$especialistaId = ParseUser::getCurrentUser(ObjectId);
+	    //echo $date->format('Y-m-d');
+   	  //echo $especialista;
+
+//echo $especialistaId;
+ 
+
+  try{ 	 
+  $nuevopaciente = ParseCloud::run("registrarPaciente", array('nombre' => $nombreP, 'email' => $emailP, 'password' => $passwordP, 'apellido_paterno' => $apellido_paternoP, 'apellido_materno' => $apellido_maternoP , 'fecha_nacimiento' => $dateP, 'calle' => $calleP, 'numero' => $numeroP, 'colonia' => $coloniaP, 'delegacion' => $delegacionP, 'estado' => $estadoP, 'codigo_postal' => $codigo_postalP, 'telefono' => $telefonoP, 'especialistaId' => "EFBUQLiG9K" ));
+    echo $nuevopaciente -> get('nombre');
+    //header("Location: nuevopaciente.php");
+    } 
+    catch (ParseException $e)
+     {
+    echo $e -> getMessage();
+    }
+
+?>
+
+
+
+
+
+<!--Termina php--> 
+
+</body>
+</html>
